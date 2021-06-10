@@ -123,4 +123,5 @@ resource "aws_instance" "myapp-server" {
     "Name" = "${var.env_prefix}-server"
   }
   monitoring = true
+  ebs_optimized = true
 }
