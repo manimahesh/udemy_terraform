@@ -1,0 +1,8 @@
+ vpc_cidr_block = "10.0.0.0/16"
+ subnet_cidr_block = "10.0.10.0/24"
+ avail_zone = "us-west-1a"
+ env_prefix = "dev"
+ my_ip = "24.5.253.38/32"
+ instance_type = "t2.micro"
+ mypub_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDKvJJ82GhQ3LBkwlC277gYVlIfhUoQK9WF5Q6SH81aVGY2PeR2m3xaGfnaGp1TpvTrjUA54Pgnv7/AVAyvlKpWLN7SkBlSd5vagDrzE+lnmkKWb2TmONp9L/a07UBxF23KxQEckLA8mlQzwGq1OzkciP9QybwQeLCynMfRDGApyCr9QUi0gJy6b2AEfjifeDfmP1/BgTxvwcDyr4GZ5tZbSN3Fh6dGOrv6JjJjmMlgUp2TPeI3LKXPim4Ukobda0N09qoNiBMlj7UAQ3NBH8/YVHnvmdR7rPf3itOtPQJ3l3M0oFwbPZVUiKICAT6ZlZyS2TeLmL1VhSUrwKN97MyCiMYdSAgM/1s1/BngVVLp0rR48TwJ9ljkY6VxwIjxeDWD6FlCBZmAosiUlSeG13I5fyuprA0vbOX0j6DEwn8dDy+DolGrhZcfq6S43ldpSg+Bf9VlJxu23GjGYemciY+/tLHvP1VXiUVSnghkg1j1GOHjE7TQPmuY/8wMCVpiZJ8= manim@MMSPRO7"
+ public_key_location = "C:\\Users\\manim\\.ssh\\id_rsa.pub"

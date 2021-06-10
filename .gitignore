@@ -1,0 +1,11 @@
+# Ignore .terraform folder
+.terraform/**
+
+# TF State files
+*.tfstate
+*.tfstate.*
+
+# TF Variables
+# *.tfvars
+
+# entry-script.sh
