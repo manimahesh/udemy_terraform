@@ -25,8 +25,15 @@ resource "aws_subnet" "myapp-subnet-1" {
   cidr_block        = var.subnet_cidr_block
   availability_zone = var.avail_zone
   tags = {
-    "Name"    = "${var.env_prefix}-subnet-1"
-    yor_trace = "06140282-e314-4e30-97d8-47faf2428ba6"
+    "Name"               = "${var.env_prefix}-subnet-1"
+    yor_trace            = "06140282-e314-4e30-97d8-47faf2428ba6"
+    git_commit           = "0706f6549c75351646d3c3a856d0c476fa127593"
+    git_file             = "main.tf"
+    git_last_modified_at = "2021-07-22 22:49:58"
+    git_last_modified_by = "manimahesh1@gmail.com"
+    git_modifiers        = "manimahesh1"
+    git_org              = "manimahesh"
+    git_repo             = "udemy_terraform"
   }
 }
 
@@ -82,8 +89,15 @@ resource "aws_security_group" "my-app-sg" {
   }
 
   tags = {
-    "Name"    = "${var.env_prefix}-sg"
-    yor_trace = "b3ce211e-b2c1-444d-bdf4-5e0ae71ab8fd"
+    "Name"               = "${var.env_prefix}-sg"
+    yor_trace            = "b3ce211e-b2c1-444d-bdf4-5e0ae71ab8fd"
+    git_commit           = "0706f6549c75351646d3c3a856d0c476fa127593"
+    git_file             = "main.tf"
+    git_last_modified_at = "2021-07-22 22:49:58"
+    git_last_modified_by = "manimahesh1@gmail.com"
+    git_modifiers        = "manimahesh1"
+    git_org              = "manimahesh"
+    git_repo             = "udemy_terraform"
   }
 }
 
@@ -128,8 +142,15 @@ resource "aws_instance" "myapp-server" {
   user_data = file("entry-script.sh")
 
   tags = {
-    "Name"    = "${var.env_prefix}-server"
-    yor_trace = "c52f1f0a-ac32-4e5c-8044-5f271da90dcb"
+    "Name"               = "${var.env_prefix}-server"
+    yor_trace            = "c52f1f0a-ac32-4e5c-8044-5f271da90dcb"
+    git_commit           = "0706f6549c75351646d3c3a856d0c476fa127593"
+    git_file             = "main.tf"
+    git_last_modified_at = "2021-07-22 22:49:58"
+    git_last_modified_by = "manimahesh1@gmail.com"
+    git_modifiers        = "manimahesh1"
+    git_org              = "manimahesh"
+    git_repo             = "udemy_terraform"
   }
   ebs_optimized = true
 }
