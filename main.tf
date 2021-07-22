@@ -1,6 +1,6 @@
 provider "aws" {
-    region = "us-west-1"
-    
+  region = "us-west-1"
+
 }
 
 variable "vpc_cidr_block" {}
@@ -15,23 +15,26 @@ variable "public_key_location" {}
 resource "aws_vpc" "myapp-vpc" {
   cidr_block = var.vpc_cidr_block
   tags = {
-    "Name" = "${var.env_prefix}-vpc"
+    "Name"    = "${var.env_prefix}-vpc"
+    yor_trace = "68a2cee4-4283-44a6-962b-a48177b8abf2"
   }
 }
 
 resource "aws_subnet" "myapp-subnet-1" {
-  vpc_id = aws_vpc.myapp-vpc.id
-  cidr_block = var.subnet_cidr_block
+  vpc_id            = aws_vpc.myapp-vpc.id
+  cidr_block        = var.subnet_cidr_block
   availability_zone = var.avail_zone
   tags = {
-    "Name" = "${var.env_prefix}-subnet-1"
+    "Name"    = "${var.env_prefix}-subnet-1"
+    yor_trace = "06140282-e314-4e30-97d8-47faf2428ba6"
   }
 }
 
 resource "aws_internet_gateway" "myapp-igw" {
   vpc_id = aws_vpc.myapp-vpc.id
   tags = {
-    "Name" = "${var.env_prefix}-igw"
+    "Name"    = "${var.env_prefix}-igw"
+    yor_trace = "05271025-889e-45ef-b8c3-53169812856e"
   }
 }
 
@@ -42,51 +45,53 @@ resource "aws_route_table" "myapp-route-table" {
     gateway_id = aws_internet_gateway.myapp-igw.id
   }
   tags = {
-    "Name" = "${var.env_prefix}-rtb"
+    "Name"    = "${var.env_prefix}-rtb"
+    yor_trace = "ccb91924-3066-43f6-a20a-2cf5f3c088b6"
   }
 }
 
 resource "aws_route_table_association" "a-rtb-subnet" {
-  subnet_id = aws_subnet.myapp-subnet-1.id
+  subnet_id      = aws_subnet.myapp-subnet-1.id
   route_table_id = aws_route_table.myapp-route-table.id
 }
 
 resource "aws_security_group" "my-app-sg" {
-  name = "myapp-sg"
+  name   = "myapp-sg"
   vpc_id = aws_vpc.myapp-vpc.id
 
   ingress {
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = [var.my_ip]
-  } 
+  }
 
   ingress {
-    from_port = 8080
-    to_port = 8080
-    protocol = "tcp"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  } 
+  }
 
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
     prefix_list_ids = []
   }
 
   tags = {
-    "Name" = "${var.env_prefix}-sg"
+    "Name"    = "${var.env_prefix}-sg"
+    yor_trace = "b3ce211e-b2c1-444d-bdf4-5e0ae71ab8fd"
   }
 }
 
 data "aws_ami" "latest-amazon-linux-image" {
   most_recent = true
-  owners = ["amazon"]
+  owners      = ["amazon"]
   filter {
-    name = "name"
+    name   = "name"
     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
 }
@@ -104,23 +109,27 @@ resource "aws_key_pair" "ssh-key" {
   key_name = "server-key"
   #public_key = var.mypub_key
   public_key = file(var.public_key_location)
+  tags = {
+    yor_trace = "4d6a04d8-145a-4edf-bf60-ddcd4e54f4be"
+  }
 }
 
 resource "aws_instance" "myapp-server" {
-  ami = data.aws_ami.latest-amazon-linux-image.id
+  ami           = data.aws_ami.latest-amazon-linux-image.id
   instance_type = var.instance_type
 
-  subnet_id = aws_subnet.myapp-subnet-1.id
+  subnet_id              = aws_subnet.myapp-subnet-1.id
   vpc_security_group_ids = [aws_security_group.my-app-sg.id]
-  availability_zone = var.avail_zone
-  
+  availability_zone      = var.avail_zone
+
   associate_public_ip_address = true
-  key_name = aws_key_pair.ssh-key.key_name
+  key_name                    = aws_key_pair.ssh-key.key_name
 
   user_data = file("entry-script.sh")
 
   tags = {
-    "Name" = "${var.env_prefix}-server"
+    "Name"    = "${var.env_prefix}-server"
+    yor_trace = "c52f1f0a-ac32-4e5c-8044-5f271da90dcb"
   }
   ebs_optimized = true
 }
