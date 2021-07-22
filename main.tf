@@ -16,7 +16,7 @@ resource "aws_vpc" "myapp-vpc" {
   cidr_block = var.vpc_cidr_block
   tags = {
     "Name"    = "${var.env_prefix}-vpc"
-    yor_trace = "68a2cee4-4283-44a6-962b-a48177b8abf2" 
+    yor_trace = "68a2cee4-4283-44a6-962b-a48177b8abf2"
   }
 }
 
@@ -37,32 +37,46 @@ resource "aws_subnet" "myapp-subnet-1" {
   }
 }
 
-resource "aws_internet_gateway" "myapp-igw" { 
+resource "aws_internet_gateway" "myapp-igw" {
   vpc_id = aws_vpc.myapp-vpc.id
   tags = {
-    "Name"    = "${var.env_prefix}-igw"
-    yor_trace = "05271025-889e-45ef-b8c3-53169812856e"
+    "Name"               = "${var.env_prefix}-igw"
+    yor_trace            = "05271025-889e-45ef-b8c3-53169812856e"
+    git_commit           = "582a8fbc619e193f61c54d7bd4cf2abeb17f94a1"
+    git_file             = "main.tf"
+    git_last_modified_at = "2021-07-22 23:34:14"
+    git_last_modified_by = "manimahesh1@gmail.com"
+    git_modifiers        = "manimahesh1"
+    git_org              = "manimahesh"
+    git_repo             = "udemy_terraform"
   }
 }
 
-resource "aws_route_table" "myapp-route-table" { 
+resource "aws_route_table" "myapp-route-table" {
   vpc_id = aws_vpc.myapp-vpc.id
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.myapp-igw.id
   }
   tags = {
-    "Name"    = "${var.env_prefix}-rtb"
-    yor_trace = "ccb91924-3066-43f6-a20a-2cf5f3c088b6"
+    "Name"               = "${var.env_prefix}-rtb"
+    yor_trace            = "ccb91924-3066-43f6-a20a-2cf5f3c088b6"
+    git_commit           = "582a8fbc619e193f61c54d7bd4cf2abeb17f94a1"
+    git_file             = "main.tf"
+    git_last_modified_at = "2021-07-22 23:34:14"
+    git_last_modified_by = "manimahesh1@gmail.com"
+    git_modifiers        = "manimahesh1"
+    git_org              = "manimahesh"
+    git_repo             = "udemy_terraform"
   }
 }
 
-resource "aws_route_table_association" "a-rtb-subnet" { 
+resource "aws_route_table_association" "a-rtb-subnet" {
   subnet_id      = aws_subnet.myapp-subnet-1.id
   route_table_id = aws_route_table.myapp-route-table.id
 }
 
-resource "aws_security_group" "my-app-sg" { 
+resource "aws_security_group" "my-app-sg" {
   name   = "myapp-sg"
   vpc_id = aws_vpc.myapp-vpc.id
 
@@ -91,9 +105,9 @@ resource "aws_security_group" "my-app-sg" {
   tags = {
     "Name"               = "${var.env_prefix}-sg"
     yor_trace            = "b3ce211e-b2c1-444d-bdf4-5e0ae71ab8fd"
-    git_commit           = "0706f6549c75351646d3c3a856d0c476fa127593"
+    git_commit           = "582a8fbc619e193f61c54d7bd4cf2abeb17f94a1"
     git_file             = "main.tf"
-    git_last_modified_at = "2021-07-22 22:49:58"
+    git_last_modified_at = "2021-07-22 23:34:14"
     git_last_modified_by = "manimahesh1@gmail.com"
     git_modifiers        = "manimahesh1"
     git_org              = "manimahesh"
@@ -101,7 +115,7 @@ resource "aws_security_group" "my-app-sg" {
   }
 }
 
-data "aws_ami" "latest-amazon-linux-image" { 
+data "aws_ami" "latest-amazon-linux-image" {
   most_recent = true
   owners      = ["amazon"]
   filter {
@@ -110,25 +124,32 @@ data "aws_ami" "latest-amazon-linux-image" {
   }
 }
 
-output "aws_ami_id" { 
+output "aws_ami_id" {
   value = data.aws_ami.latest-amazon-linux-image.id
 }
 
-output "ec2_public_ip" { 
+output "ec2_public_ip" {
   value = aws_instance.myapp-server.public_ip
 }
 
 
-resource "aws_key_pair" "ssh-key" { 
+resource "aws_key_pair" "ssh-key" {
   key_name = "server-key"
   #public_key = var.mypub_key
   public_key = file(var.public_key_location)
   tags = {
-    yor_trace = "4d6a04d8-145a-4edf-bf60-ddcd4e54f4be"
+    yor_trace            = "4d6a04d8-145a-4edf-bf60-ddcd4e54f4be"
+    git_commit           = "582a8fbc619e193f61c54d7bd4cf2abeb17f94a1"
+    git_file             = "main.tf"
+    git_last_modified_at = "2021-07-22 23:34:14"
+    git_last_modified_by = "manimahesh1@gmail.com"
+    git_modifiers        = "manimahesh1"
+    git_org              = "manimahesh"
+    git_repo             = "udemy_terraform"
   }
 }
 
-resource "aws_instance" "myapp-server" { 
+resource "aws_instance" "myapp-server" {
   ami           = data.aws_ami.latest-amazon-linux-image.id
   instance_type = var.instance_type
 
@@ -144,9 +165,9 @@ resource "aws_instance" "myapp-server" {
   tags = {
     "Name"               = "${var.env_prefix}-server"
     yor_trace            = "c52f1f0a-ac32-4e5c-8044-5f271da90dcb"
-    git_commit           = "0706f6549c75351646d3c3a856d0c476fa127593"
+    git_commit           = "582a8fbc619e193f61c54d7bd4cf2abeb17f94a1"
     git_file             = "main.tf"
-    git_last_modified_at = "2021-07-22 22:49:58"
+    git_last_modified_at = "2021-07-22 23:34:14"
     git_last_modified_by = "manimahesh1@gmail.com"
     git_modifiers        = "manimahesh1"
     git_org              = "manimahesh"
