@@ -12,7 +12,7 @@ variable "instance_type" {}
 variable "mypub_key" {}
 variable "public_key_location" {}
 
-resource "aws_vpc" "myapp-vpc" {
+resource "aws_vpc" "myapp-vpc" {    
   cidr_block = var.vpc_cidr_block
   tags = {
     "Name"    = "${var.env_prefix}-vpc"
@@ -71,7 +71,7 @@ resource "aws_route_table" "myapp-route-table" {
   }
 }
 
-resource "aws_route_table_association" "a-rtb-subnet" {
+resource "aws_route_table_association" "a-rtb-subnet" {    
   subnet_id      = aws_subnet.myapp-subnet-1.id
   route_table_id = aws_route_table.myapp-route-table.id
 }
@@ -115,7 +115,7 @@ resource "aws_security_group" "my-app-sg" {
   }
 }
 
-data "aws_ami" "latest-amazon-linux-image" {
+data "aws_ami" "latest-amazon-linux-image" {    
   most_recent = true
   owners      = ["amazon"]
   filter {
@@ -124,11 +124,11 @@ data "aws_ami" "latest-amazon-linux-image" {
   }
 }
 
-output "aws_ami_id" {
+output "aws_ami_id" {     
   value = data.aws_ami.latest-amazon-linux-image.id
 }
 
-output "ec2_public_ip" {
+output "ec2_public_ip" {     
   value = aws_instance.myapp-server.public_ip
 }
 
@@ -149,7 +149,7 @@ resource "aws_key_pair" "ssh-key" {
   }
 }
 
-resource "aws_instance" "myapp-server" {
+resource "aws_instance" "myapp-server" {      
   ami           = data.aws_ami.latest-amazon-linux-image.id
   instance_type = var.instance_type
 
