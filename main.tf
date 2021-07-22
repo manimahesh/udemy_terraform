@@ -16,7 +16,7 @@ resource "aws_vpc" "myapp-vpc" {
   cidr_block = var.vpc_cidr_block
   tags = {
     "Name"    = "${var.env_prefix}-vpc"
-    yor_trace = "68a2cee4-4283-44a6-962b-a48177b8abf2"
+    yor_trace = "68a2cee4-4283-44a6-962b-a48177b8abf2" 
   }
 }
 
@@ -37,7 +37,7 @@ resource "aws_subnet" "myapp-subnet-1" {
   }
 }
 
-resource "aws_internet_gateway" "myapp-igw" {
+resource "aws_internet_gateway" "myapp-igw" { 
   vpc_id = aws_vpc.myapp-vpc.id
   tags = {
     "Name"    = "${var.env_prefix}-igw"
@@ -45,7 +45,7 @@ resource "aws_internet_gateway" "myapp-igw" {
   }
 }
 
-resource "aws_route_table" "myapp-route-table" {
+resource "aws_route_table" "myapp-route-table" { 
   vpc_id = aws_vpc.myapp-vpc.id
   route {
     cidr_block = "0.0.0.0/0"
@@ -57,12 +57,12 @@ resource "aws_route_table" "myapp-route-table" {
   }
 }
 
-resource "aws_route_table_association" "a-rtb-subnet" {
+resource "aws_route_table_association" "a-rtb-subnet" { 
   subnet_id      = aws_subnet.myapp-subnet-1.id
   route_table_id = aws_route_table.myapp-route-table.id
 }
 
-resource "aws_security_group" "my-app-sg" {
+resource "aws_security_group" "my-app-sg" { 
   name   = "myapp-sg"
   vpc_id = aws_vpc.myapp-vpc.id
 
@@ -101,7 +101,7 @@ resource "aws_security_group" "my-app-sg" {
   }
 }
 
-data "aws_ami" "latest-amazon-linux-image" {
+data "aws_ami" "latest-amazon-linux-image" { 
   most_recent = true
   owners      = ["amazon"]
   filter {
@@ -110,16 +110,16 @@ data "aws_ami" "latest-amazon-linux-image" {
   }
 }
 
-output "aws_ami_id" {
+output "aws_ami_id" { 
   value = data.aws_ami.latest-amazon-linux-image.id
 }
 
-output "ec2_public_ip" {
+output "ec2_public_ip" { 
   value = aws_instance.myapp-server.public_ip
 }
 
 
-resource "aws_key_pair" "ssh-key" {
+resource "aws_key_pair" "ssh-key" { 
   key_name = "server-key"
   #public_key = var.mypub_key
   public_key = file(var.public_key_location)
@@ -128,7 +128,7 @@ resource "aws_key_pair" "ssh-key" {
   }
 }
 
-resource "aws_instance" "myapp-server" {
+resource "aws_instance" "myapp-server" { 
   ami           = data.aws_ami.latest-amazon-linux-image.id
   instance_type = var.instance_type
 
