@@ -1,5 +1,7 @@
 # Ignore .terraform folder
 .terraform/**
+.terraform.lock.hcl
+id_rsa.pub
 
 # TF State files
 *.tfstate
