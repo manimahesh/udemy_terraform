@@ -1,6 +1,5 @@
 provider "aws" {
   region = "us-west-1"
-
 }
 
 variable "vpc_cidr_block" {}
@@ -128,6 +127,10 @@ data "aws_ami" "latest-amazon-linux-image" {
   filter {
     name   = "name"
     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
+  filter {
+    name="virtualization-type"
+    values = ["hvm"]
   }
 }
 
